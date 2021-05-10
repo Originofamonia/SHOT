@@ -35,26 +35,26 @@ def lr_scheduler(optimizer, iter_num, max_iter, gamma=10, power=0.75):
 def digit_load(args):
     train_bs = args.batch_size
     if args.dset == 's2m':
-        train_source = svhn.SVHN('./data/svhn/', split='train', download=True,
+        train_source = svhn.SVHN('data/svhn/', split='train', download=True,
                                  transform=transforms.Compose([
                                      transforms.Resize(32),
                                      transforms.ToTensor(),
                                      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                  ]))
-        test_source = svhn.SVHN('./data/svhn/', split='test', download=True,
+        test_source = svhn.SVHN('data/svhn/', split='test', download=True,
                                 transform=transforms.Compose([
                                     transforms.Resize(32),
                                     transforms.ToTensor(),
                                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                 ]))
-        train_target = mnist.MNIST_idx('./data/mnist/', train=True, download=True,
+        train_target = mnist.MNIST_idx('data/MNIST/', train=True, download=True,
                                        transform=transforms.Compose([
                                            transforms.Resize(32),
                                            transforms.Lambda(lambda x: x.convert("RGB")),
                                            transforms.ToTensor(),
                                            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                        ]))
-        test_target = mnist.MNIST('./data/mnist/', train=False, download=True,
+        test_target = mnist.MNIST('data/MNIST/', train=False, download=True,
                                   transform=transforms.Compose([
                                       transforms.Resize(32),
                                       transforms.Lambda(lambda x: x.convert("RGB")),
@@ -423,7 +423,7 @@ def obtain_label(loader, netF, netB, netC, args, c=None):
     return pred_label.astype('int')
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description='SHOT')
     parser.add_argument('--gpu_id', type=str, nargs='?', default='0', help="device id to run")
     parser.add_argument('--s', type=int, default=0, help="source")
@@ -473,3 +473,7 @@ if __name__ == "__main__":
     args.out_file.write(print_args(args) + '\n')
     args.out_file.flush()
     train_target(args)
+
+
+if __name__ == "__main__":
+    main()

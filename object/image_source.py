@@ -17,6 +17,7 @@ from scipy.spatial.distance import cdist
 from sklearn.metrics import confusion_matrix
 from sklearn.cluster import KMeans
 
+
 def op_copy(optimizer):
     for param_group in optimizer.param_groups:
         param_group['lr0'] = param_group['lr']

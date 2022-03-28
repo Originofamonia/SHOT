@@ -314,6 +314,7 @@ def train_target(args):
         except:
             iter_test = iter(dset_loaders["target"])
             inputs_test, _, tar_idx = iter_test.next()
+            print(tar_idx)
 
         if inputs_test.size(0) == 1:
             continue
